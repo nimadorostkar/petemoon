@@ -1,0 +1,60 @@
+patch:
+  operationId: dashboard_pet_partial_update
+  summary: "update pet"
+
+  description: ''
+  parameters:     
+    - in: "body"
+      name: "body"
+      description: "Add address"
+      required: true
+      schema:
+        $ref: "#/definitions/Pet"
+  responses:
+    '200':
+      description: ''
+  tags:
+    - dashboard
+parameters:
+  - name: id
+    in: path
+    required: true
+    type: string
+
+
+definitions:
+    Pet:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+          format: "char"
+          example: "malmal"
+        sex:
+          type: "string"
+          format: "char"
+          example: "M"
+
+        birth_date:
+          type: "string"
+          format: "char"
+          example: "2020-12-2"
+
+        weight:
+          type: "float"
+          example: "30.3"
+
+        last_vaccine_date:
+          type: "string"
+          format: "char"
+          example: "2022-12-29"
+
+        underlying_disease:
+          type: "string"
+          format: "char"
+          example: "HIV"
+
+        last_anti_parasitic_vaccine_date:
+          type: "string"
+          format: "char"
+          example: "2022-12-29"
