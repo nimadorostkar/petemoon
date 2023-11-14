@@ -1,0 +1,318 @@
+get:
+  tags:
+    - "Product"
+  summary: "Get product by Slug"
+  description: ""
+  operationId: "get_product_by_slug"
+  consumes:
+    - "application/json"
+  produces:
+    - "application/json"
+  parameters:
+    - in: "path"
+      name: "slug"
+      description: "Slug of product"
+      required: true
+      type: "string"
+  responses:
+    200:
+      description: "Product found"
+      schema:
+        $ref: "#/definitions/Product"
+    404:
+      description: "Product not found"
+      schema:
+        $ref: "#/definitions/InvalidSlug"
+post:
+  tags:
+    - "Product"
+  summery: "Create Comment"
+  description: ""
+  operationId: "create_comment"
+  consumes:
+    - "application/json"
+  produces:
+    - "application/json"
+  parameters:
+    - in: "path"
+      name: "slug"
+      description: "Slug of product"
+      required: true
+      type: "string"
+    - in: "body"
+      name: "body"
+      description: "Comment"
+      required: true
+      schema:
+        type: "object"
+        properties:
+          title:
+            type: "string"
+            example: "This is a comment"
+          text:
+            type: "string"
+            example: "This is a comment"
+          rate:
+            type: "int"
+            example: 4
+    - in: "header"
+      name: "Authorization"
+      description: "Bearer token must be here or in cookie"
+      required: false
+      schema:
+        type: "string"
+  responses:
+    201:
+      description: "Comment created"
+      schema:
+        $ref: "#/definitions/CommentSuccess"
+    400:
+      description: "Invalid request"
+      schema:
+        $ref: "#/definitions/InvalidComment"
+    403:
+      description: "Forbidden"
+    404:
+      description: "Product not found"
+      schema:
+        $ref: "#/definitions/InvalidSlug"
+
+definitions:
+  Product:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Cat Food"
+      category:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            example: "Food"
+          slug:
+            type: "string"
+            example: "food"
+          parent_catgory:
+            $ref: "#/definitions/Product/properties/category"
+            default: null
+        default: null
+      pet_type:
+        type: "object"
+        properties:
+          pet_category:
+            type: "string"
+            example: "Persian"
+          pet_type:
+            type: "object"
+            properties: 
+              pet_type:
+                type: "string"
+                example: "Cat"
+      picture:
+        type: "string"
+        example: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+      details:
+        type: "string"
+        example: "This is a cat food"
+      specs:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+              example: "Weight"
+            value:
+              type: "string"
+              example: "1kg"
+      pictures:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            picture:
+              type: "string"
+              example: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+      brand:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            example: "Royal Canin"
+          slug:
+            type: "slug"
+            example: "royal-canin"
+      rating:
+        type: "number"
+        example: 4.5
+      price:
+        type: "int"
+        example: 100000
+      comments:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            user:
+              type: "string"
+              example: "user1"
+            title:
+              type: "string"
+              example: "This is a comment"
+            text:
+              type: "string"
+              example: "This is a comment"
+            rate:
+              type: "number"
+              example: 4.5
+            created_at:
+              type: "string"
+              format: "date-time"
+              example: "2018-01-01T00:00:00Z"
+      best_pricing:
+        type: "object"
+        properties:
+          id:
+            type: "int"
+            example: 1
+          price:
+            type: "int"
+            example: 100000
+          price_after_sale:
+            type: "int"
+            example: 90000
+          inventory:
+            type: "int"
+            example: 100
+          petshop:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Petshop 1"
+              slug:
+                type: "string"
+                example: "petshop-1"
+      productpricing:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "int"
+              example: 1
+            price:
+              type: "int"
+              example: 100000
+            price_after_sale:
+              type: "int"
+              example: 90000
+            inventory:
+              type: "int"
+              example: 100
+            petshop:
+              type: "object"
+              properties:
+                name:
+                  type: "string"
+                  example: "Petshop 1"
+                slug:
+                  type: "string"
+                  example: "petshop-1"
+      related_products:
+        type: "array"
+        items:
+          $ref: "#/definitions/ProductList"
+  InvalidSlug:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+        example: false
+      errors:
+        type: "array"
+        example: ["Product not found."]
+  InvalidComment:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+        example: false
+      errors:
+        type: "object"
+        properties:
+          title:
+            type: "array"
+            example: ["This field is required."]
+          text:
+            type: "array"
+            example: ["This field is required."]
+          rate:
+            type: "array"
+            example: ["This field is required."]
+  CommentSuccess:
+    type: "object"
+    properties:
+      success:
+        type: "boolean"
+        example: true
+      data:
+        type: "object"
+        properties:
+          title:
+            type: "string"
+            example: "This is a comment"
+          text:
+            type: "string"
+            example: "This is a comment"
+          rate:
+            type: "int"
+            example: 4
+  ProductList:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "Cat Food"
+      slug:
+        type: "string"
+        example: "cat-food"
+      category:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            example: "Food"
+          slug:
+            type: "string"
+            example: "food"
+          parent_catgory:
+            $ref: "#/definitions/Product/properties/category"
+            default: null
+        default: null
+      picture:
+        type: "string"
+        example: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+      max_price:
+        type: "int"
+        example: 100000
+      min_price:
+        type: "int"
+        example: 90000
+      inventory:
+        type: "int"
+        example: 100
+      rating:
+        type: "number"
+        example: 4.5
+      best_seller:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+            example: "Petshop 1"
+          slug:
+            type: "string"
+            example: "petshop-1"
+        default: null

@@ -1,0 +1,39 @@
+delete:
+  operationId: dashboard_favorite_delete
+  summary: "delete bookmark"
+  description: ''
+  parameters:
+  - name: id
+    in: path
+    required: true
+    type: string
+
+  responses:
+    200:
+      description: 'Bookmark deleted successfuly'
+      schema:
+        $ref: "#/definitions/ValidBookmark"
+    400:
+      description: "bookmark does not exist"
+      schema:
+        $ref: "#/definitions/InvalidBookmark"
+  tags:
+    - dashboard
+
+
+definitions:
+    InvalidBookmark:
+      type: "object"
+      properties:         
+        errors:
+          type: "object"
+          format: "char"
+          example: "Bookmark does not exist"
+    ValidBookmark:
+      properties:   
+          success:
+            type: "object"
+            format: "char"
+            example: "Bookmark deleted successfuly"
+
+        
