@@ -1,0 +1,71 @@
+from rest_framework import serializers
+
+class PastVisitSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    first_name = serializers.CharField(source='user.first_name', default=None)
+    time = serializers.DateTimeField(source='time.time', default=None)
+    price = serializers.IntegerField(required=False)
+    status = serializers.CharField()
+    visit_id = serializers.CharField()
+    pet_type = serializers.CharField(source='pet.pet_type', default=None)
+    pet_category = serializers.CharField(source='pet.pet_category', default=None)
+    phone_number = serializers.CharField(source='user.phone_number', default=None)
+    pet_name = serializers.CharField(source='pet.name', default=None)
+    explanation = serializers.CharField()
+    reason = serializers.CharField()
+    photo = serializers.FileField()
+    prescription_photo = serializers.ImageField()
+    prescription_summary = serializers.CharField()
+    prescription = serializers.CharField()
+        
+
+
+class SinglePastVisitSerializer(serializers.Serializer):
+    user_frist_name = serializers.CharField(source='user.first_name', default=None)
+    time = serializers.DateTimeField(source='time.time', default=None)
+    price = serializers.IntegerField(required=False)
+    status = serializers.CharField()
+    pet_type = serializers.CharField(source='pet.pet_type', default=None)
+    phone_number = serializers.CharField(source='user.phone_number', default=None)
+    pet_name = serializers.CharField(source='pet.name', default=None)
+    prescription_photo = serializers.ImageField()
+    prescription_summary = serializers.CharField()
+    prescription = serializers.CharField()
+
+
+class  FutureVisitSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    first_name = serializers.CharField(source='user.first_name', default=None)
+    time = serializers.DateTimeField(source='time.time', default=None)
+    price = serializers.IntegerField(required=False)
+    status = serializers.CharField()
+    visit_id = serializers.CharField()
+    pet_type = serializers.CharField(source='pet.pet_type', default=None)
+    pet_category = serializers.CharField(source='pet.pet_category', default=None)
+    phone_number = serializers.CharField(source='user.phone_number', default=None)
+    pet_name = serializers.CharField(source='pet.name', default=None)
+    explanation = serializers.CharField()
+    reason = serializers.CharField()
+    photo = serializers.FileField()
+    prescription_photo = serializers.ImageField()
+    prescription_summary = serializers.CharField()
+    prescription = serializers.CharField()
+        
+
+class SingleFutureVisitSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    user_frist_name = serializers.CharField(source='user.first_name', default=None)
+    user_last_name = serializers.CharField(source='user.last_name', default=None)
+    time = serializers.DateTimeField(source='time.time', default=None)
+    price = serializers.IntegerField(required=False)
+    status = serializers.CharField()
+    pet_type = serializers.CharField(source='pet.pet_type', default=None)
+    pet_category = serializers.CharField(source='pet.pet_category', default=None)
+    phone_number = serializers.CharField(source='user.phone_number', default=None)
+    pet_name = serializers.CharField(source='pet.name', default=None)
+    explanation = serializers.CharField()
+    reason = serializers.CharField()
+    photo = serializers.FileField()
+    prescription_photo = serializers.ImageField()
+    prescription_summary = serializers.CharField()
+    prescription = serializers.CharField()
